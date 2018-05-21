@@ -9,12 +9,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.location.entities.Location;
 import com.location.service.LocationService;
+import com.location.util.EmailUtil;
 
 @RestController
 public class LocationController {
 	
 	@Autowired
 	private LocationService service;
+	
+	@Autowired
+	private EmailUtil emailUtil;
 	
 	@RequestMapping("/")
 	public String home() {
@@ -30,11 +34,21 @@ public class LocationController {
 		location.setType("Metro");
 		return service.saveLocation(location);*/
 		
-		Location location = new Location();
+		
+		/*Location location = new Location();
 		location.setId(2);
 		location.setName("Noida");
 		location.setCode("ND");
 		location.setType("Metro");
+		return service.saveLocation(location);*/
+		
+		emailUtil.sendEmail("spring2205mail@gmail.com", "spring-mail-test : Location Saved", "Location saved successfully");
+		
+		Location location = new Location();
+		location.setId(3);
+		location.setName("Delhi");
+		location.setCode("DL");
+		location.setType("MetroCity");
 		return service.saveLocation(location);
 	}
 	
